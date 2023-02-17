@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: latest
+  pre_build:
+    commands:
+      - echo pre-build phase
+  build:
+    commands:
+      - echo build phase
+      - npm install
+  post_build:
+    commands:
+      - echo post-build phase
+      - echo Build completed on `date`
+      - echo Artifacts copied to S3
+      
+artifacts:
+  files:
+  - '**/*'
+  name: scenery_app
+      
+      
+      
