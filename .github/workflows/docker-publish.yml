@@ -7,23 +7,24 @@ on:
 
 jobs:
 
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - uses: azure/docker-login@v1
-      with:
-        login-server: employmgmt.azurecr.io
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+    # checkout the repo
+    - name: 'Checkout Github Action' 
+      uses: actions/checkout@master
 
-    - run: |
-        docker build . -t employmgmt.azurecr.io/employee:${{ github.sha }}
-        docker push employmgmt.azurecr.io/employee:${{ github.sha }} 
-    - uses: azure/webapps-deploy@v2
+    - name: Setup Node 20.x
+      uses: actions/setup-node@v1
       with:
-        app-name: 'employee148165'
+        node-version: '20.x'
+    - name: 'npm install, build, and test'
+      run: |
+        npm install
+        npm run build --if-present
+        npm run test --if-present
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: emp36746139
         publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-        images: 'employmgmt.azurecr.io/employee:${{ github.sha }}'
