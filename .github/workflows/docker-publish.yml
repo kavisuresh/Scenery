@@ -26,5 +26,5 @@ jobs:
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: emp36746139
+        app-name: scenery123
         publish-profile: ${{ secrets.azureWebAppPublishProfile }}
