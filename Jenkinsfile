@@ -14,7 +14,7 @@ pipeline {
         stage('docker') {
             steps {
                 docker('docker'){
-                docker build -t app .
+                sh 'docker build -t app .'
                 echo 'deploying......'
             }
             }
