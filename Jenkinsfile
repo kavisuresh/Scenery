@@ -12,7 +12,8 @@ pipeline {
             }
         }
         stage('docker') {
-            steps {('docker'){
+            steps {
+                docker('docker'){
                 docker build -t app .
                 echo 'deploying......'
             }
