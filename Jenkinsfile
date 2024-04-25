@@ -11,9 +11,11 @@ pipeline {
                 echo 'testing......'
             }
         }
-        stage('deploy') {
-            steps {
+        stage('docker') {
+            steps {('docker'){
+                docker build -t kavisuresh/app .
                 echo 'deploying......'
+            }
             }
         }
         
