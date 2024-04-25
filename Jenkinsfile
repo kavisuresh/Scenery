@@ -13,7 +13,7 @@ pipeline {
         }
         stage('docker') {
             steps {('docker'){
-                docker build -t kavisuresh/app .
+                docker build -t app .
                 echo 'deploying......'
             }
             }
